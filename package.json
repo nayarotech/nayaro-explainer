@@ -1,0 +1,42 @@
+{
+  "name": "nayaro-explainer",
+  "version": "1.0.0",
+  "description": "Nayaro Technology animated company explainer (Remotion)",
+  "main": "index.js",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts NayaroExplainer out/nayaro-explainer-bilingual.mp4",
+    "render:draft": "remotion render src/index.ts NayaroExplainer out/draft.mp4 --scale=0.5 --crf=26",
+    "still": "remotion still src/index.ts NayaroExplainer out/still.png --frame=1475",
+    "stills": "node scripts/preview-stills.mjs out/stills",
+    "audio": "python3 scripts/make_placeholder_audio.py",
+    "narration": "node scripts/export-narration.mjs",
+    "typecheck": "tsc --noEmit",
+    "render:ne": "remotion render src/index.ts NayaroExplainer-Nepali out/nayaro-explainer-nepali.mp4",
+    "render:en": "remotion render src/index.ts NayaroExplainer-English out/nayaro-explainer-english.mp4",
+    "render:all": "npm run render && npm run render:ne && npm run render:en",
+    "logo": "python3 scripts/split_logo.py"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/mukta": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
+    "@remotion/cli": "^4.0.535",
+    "@remotion/fonts": "^4.0.535",
+    "@remotion/paths": "^4.0.535",
+    "@remotion/shapes": "^4.0.535",
+    "@remotion/transitions": "^4.0.535",
+    "@sparticuz/chromium": "^153.0.0",
+    "@types/react": "^19.3.0",
+    "lucide-react": "^1.55.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.535",
+    "typescript": "^7.0.2"
+  },
+  "private": true
+}
