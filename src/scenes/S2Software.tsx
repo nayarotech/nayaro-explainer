@@ -281,7 +281,7 @@ const Dashboard: React.FC = () => {
 
 export const S2Software: React.FC = () => {
   const f = useCurrentFrame();
-  const {t, en, lang} = useLang();
+  const {t, en, ne, lang} = useLang();
   return (
     <AbsoluteFill>
       <Background />
@@ -302,8 +302,8 @@ export const S2Software: React.FC = () => {
           return (
             <div key={tag.en} style={{opacity: p, transform: `translateY(${(1 - p) * 14}px)`}}>
               <Chip tone="blue" style={{fontSize: 18, padding: '9px 16px'}}>
-                {t(tag)}
-                {lang === 'bilingual' ? <span style={{fontWeight: 500, opacity: 0.6}}>{en(tag)}</span> : null}
+                {lang === 'bilingual' ? en(tag) : t(tag)}
+                {lang === 'bilingual' ? <span style={{fontWeight: 500, opacity: 0.6}}>{ne(tag)}</span> : null}
               </Chip>
             </div>
           );

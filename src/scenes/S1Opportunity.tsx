@@ -123,7 +123,7 @@ const Hub: React.FC = () => {
   const {t} = useLang();
   const enter = pop(f, 8);
   const morph = prog(f, ORDER_AT + 20, 30, EASE.inOut);
-  const w = mix(morph, 320, 470);
+  const w = mix(morph, 420, 470);
   const ring = prog(f, WIRE_AT + 30, 40);
   return (
     <>
