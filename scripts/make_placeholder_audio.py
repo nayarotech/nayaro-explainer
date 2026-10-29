@@ -9,6 +9,8 @@ Replace the soundtrack with a licensed track before publishing.
 Run:  python3 scripts/make_placeholder_audio.py
 """
 import os
+import re
+from pathlib import Path
 import numpy as np
 from scipy import signal
 from scipy.io import wavfile
@@ -18,15 +20,21 @@ OUT = os.path.join(os.path.dirname(__file__), '..', 'public', 'audio')
 os.makedirs(OUT, exist_ok=True)
 rng = np.random.default_rng(7)
 
-FPS = 30
-TRANS = 20
-SCENES = [225, 255, 270, 240, 255, 360]
-starts = []
+# Read the same timeline used by Remotion so scene edits cannot leave music behind.
+timeline = (Path(__file__).resolve().parent.parent / 'src/config/timeline.ts').read_text()
+def timeline_number(name):
+    return int(re.search(rf'\b{name}\s*[:=]\s*(\d+)', timeline)[1])
+
+FPS = timeline_number('fps')
+TRANS = timeline_number('TRANSITION_FRAMES')
+scenes_block = timeline.split('export const SCENES = [', 1)[1].split('] as const', 1)[0]
+SCENES = re.findall(r"\{id: '([^']+)', duration: (\d+)\}", scenes_block)
+starts = {}
 t = 0
-for d in SCENES:
-    starts.append(t / FPS)
-    t += d - TRANS
-TOTAL = (sum(SCENES) - TRANS * (len(SCENES) - 1)) / FPS
+for scene_id, duration in SCENES:
+    starts[scene_id] = t / FPS
+    t += int(duration) - TRANS
+TOTAL = (t + TRANS) / FPS
 
 
 def midi(n):
@@ -78,15 +86,16 @@ def place(buf, x, at):
 
 
 # chord per section: (start_s, midi notes)
-connect_t = starts[0] + 138 / FPS
+connect_t = starts['opportunity'] + timeline_number('introSummary') / FPS
 CHORDS = [
     (0.0, [57, 60, 64, 67, 71]),            # Am9 - scattered, searching
     (connect_t, [53, 57, 60, 64, 67]),      # Fmaj9 - things connect
-    (starts[1], [52, 55, 60, 64, 67]),      # C/E
-    (starts[2], [55, 59, 62, 64, 69]),      # G6/9
-    (starts[3], [57, 60, 64, 67, 72]),      # Am7
-    (starts[4], [53, 57, 60, 64, 69]),      # Fmaj7
-    (starts[5], [48, 55, 60, 62, 64, 67]),  # Cadd9 - resolution
+    (starts['software'], [52, 55, 60, 64, 67]),      # C/E
+    (starts['automation'], [55, 59, 62, 64, 69]),      # G6/9
+    (starts['websites'], [57, 60, 64, 67, 72]),      # Am7
+    (starts['training'], [53, 57, 60, 64, 69]),      # Fmaj7
+    (starts['labs'], [50, 53, 57, 60, 64]),  # Dm9 - experimentation
+    (starts['reveal'] + timeline_number('logoMark') / FPS, [48, 55, 60, 62, 64, 67]),  # logo resolution
 ]
 
 n_total = int((TOTAL + 1.0) * SR)
@@ -112,9 +121,9 @@ for k, (st, notes) in enumerate(CHORDS[2:], start=2):
 BPM = 100
 step = 60 / BPM / 2
 arp = np.zeros(n_total)
-t0 = starts[1]
+t0 = starts['software']
 k = 0
-while t0 < starts[5] + 2.5:
+while t0 < starts['reveal'] + 2.5:
     chord = [c for c in CHORDS if c[0] <= t0 + 0.01][-1][1]
     pattern = [0, 2, 4, 2, 1, 3, 4, 3]
     note = chord[pattern[k % 8] % len(chord)] + 12
@@ -124,15 +133,15 @@ while t0 < starts[5] + 2.5:
     tone *= np.exp(-tt * 9) * (1 - np.exp(-tt * 400))
     accent = 1.0 if k % 2 == 0 else 0.65
     # fade arp in over scene 2 and out into the reveal
-    lvl = min(1.0, (t0 - starts[1]) / 3.0) * (1.0 if t0 < starts[5] else max(0.0, 1 - (t0 - starts[5]) / 2.5))
+    lvl = min(1.0, (t0 - starts['software']) / 3.0) * (1.0 if t0 < starts['reveal'] else max(0.0, 1 - (t0 - starts['reveal']) / 2.5))
     place(arp, tone * 0.22 * accent * lvl, t0)
     t0 += step
     k += 1
 
 # soft hat ticks on off-beats, scenes 3-5
 hats = np.zeros(n_total)
-t0 = starts[2]
-while t0 < starts[5]:
+t0 = starts['automation']
+while t0 < starts['reveal']:
     n = int(0.06 * SR)
     noise = rng.standard_normal(n)
     b, a = signal.butter(2, 7000 / (SR / 2), 'high')

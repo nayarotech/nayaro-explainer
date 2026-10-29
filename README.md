@@ -1,6 +1,6 @@
 # Nayaro Technology — Animated Company Explainer
 
-A 50-second, 1920×1080 / 30 fps brand video built with React + Remotion, in **Nepali + English**. It covers six scenes: the problem, custom software, AI automation, websites, IT training, and the brand reveal with the official Nayaro logo.
+A 57.5-second, 1920×1080 / 30 fps brand video built with React + Remotion, in **Nepali + English**. It introduces Nayaro’s three paths — Academy (Learn), Solutions (Build), and Labs (Innovate) — through seven scenes: company introduction, custom software, automation, websites, project-based learning, Labs, and the official logo reveal.
 
 ## Quick start
 
@@ -38,7 +38,7 @@ Run `npm run studio`. Remotion Studio opens in the browser with a timeline. Ever
 
 ### 2. Change any text (Nepali or English)
 
-Edit **`src/config/copy.ts`**. Every word on screen lives there, grouped by scene:
+Edit **`src/config/copy.ts`**. Service and closing copy lives there, grouped by scene. The introduction and Labs copy is kept beside its layouts in `S1Opportunity.tsx` and `S7Labs.tsx`:
 
 ```ts
 scene3: {
@@ -78,6 +78,8 @@ Edit **`src/config/timeline.ts`**:
 
 - `SCENES`: the length of each scene, in frames (30 frames = 1 second).
 - `TRANSITION_FRAMES`: how long each crossover between scenes lasts.
+- `CUES`: shared offsets for the intro summary and logo sound/animation.
+- After changing timing, run `npm run audio` to regenerate music from the same timeline.
 - `NARRATION`: voice-over lines (Nepali + English) and when each one starts.
 
 Inside a scene file, constants at the top control when things happen. For example, `src/scenes/S3Automation.tsx` has `PACKET_START = 74`, which is when the first order card starts moving.
@@ -100,12 +102,13 @@ Each scene is one file in `src/scenes/`:
 
 | File | Scene |
 |---|---|
-| `S1Opportunity.tsx` | Scattered tools → connected workspace |
+| `S1Opportunity.tsx` | Learn · Build · Innovate introduction |
 | `S2Software.tsx` | Dashboard assembling |
 | `S3Automation.tsx` | Request → AI → notify + report flow |
 | `S4Websites.tsx` | Blank browser → website → phone |
 | `S5Training.tsx` | Code editor + Nayaro Academy |
-| `S6Reveal.tsx` | Services → logo → tagline → contact |
+| `S7Labs.tsx` | Products, AI experiments and internal tools |
+| `S6Reveal.tsx` | Three paths → logo → tagline → two audience calls to action |
 
 Positions are plain pixel numbers on a 1920×1080 canvas, such as `left: 770, top: 150`. Animation timing uses helpers from `src/design/motion.ts`:
 
@@ -129,3 +132,7 @@ All fonts are bundled in `public/fonts/`, so no internet connection is needed to
 - There are no testimonials, client logos or company statistics.
 - Academy module names come from the Web Development track on nayaro.tech.
 - `public/audio/soundtrack-placeholder.wav` is a synthesized placeholder. **Replace it with a licensed track before publishing.**
+
+## Website alignment
+
+Reviewed against [nayaro.tech](https://nayaro.tech) on October 27, 2026. The company story follows Academy, Solutions and Labs, grounded in Urlabari. Labs categories describe areas of work, without inventing released products. The service interfaces and learner progress remain illustrative. Updated Nepali and English narration guides are generated with `npm run narration`; no recorded voice-over is included.

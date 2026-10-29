@@ -16,43 +16,13 @@ export type L = { ne: string; en: string };
 export type Text = L | string;
 
 export const copy = {
-  scene1: {
-    eyebrow: { ne: "Opportunity", en: "The opportunity" },
-    headlineBefore: {
-      ne: "Business को काम धेरै ठाउँमा छरिएको chaaa?",
-      en: "Work scattered across tools that never talk.",
-    },
-    headlineAfter: {
-      ne: "अब सबै काम, एउटै Digital Platform मा।",
-      en: "One connected digital workspace.",
-    },
-    highlightAfter: { ne: ["एउटै"], en: ["connected"] },
-    hub: { ne: "तपाईंको Business", en: "Your business" },
-    hubSub: {
-      ne: "Many tools, no single view",
-      en: "Many tools, no single view",
-    },
-    hubAfter: { ne: "Connected workspace", en: "Connected workspace" },
-    hubAfterSub: { ne: "सबै कुरा एकै ठाउँमा", en: "Everything in one place" },
-    tools: [
-      { ne: "Spreadsheets", en: "Spreadsheets" },
-      { ne: "Paper Files", en: "Paper files" },
-      { ne: "Chat", en: "Group chats" },
-      { ne: "Phone Calls", en: "Phone calls" },
-      { ne: "Email", en: "Email" },
-      { ne: "Bills", en: "Ledgers" },
-      // {ne:'Inventory', en: 'Inventory'},
-    ],
-    manual: { ne: "Manual", en: "Manual" },
-    synced: { ne: "Synced", en: "Synced" },
-  },
   scene2: {
-    eyebrow: { ne: "01 · Customized Software", en: "01 · Custom software" },
+    eyebrow: { ne: "बनाउने · Nayaro Solutions", en: "Build · Nayaro Solutions" },
     headline: {
-      ne: "तपाईंको Business अनुसार बनाइएको Software।",
+      ne: "तपाईंको व्यवसाय सुहाउँदो सफ्टवेयर।",
       en: "Software shaped around how your business runs.",
     },
-    highlight: { ne: ["Business"], en: ["shaped"] },
+    highlight: { ne: ["सफ्टवेयर"], en: ["shaped"] },
     tags: [
       { ne: "मौज्दात", en: "Inventory" },
       { ne: "बिलिङ", en: "Billing" },
@@ -112,15 +82,15 @@ export const copy = {
       { ne: "Finished goods", en: "Finished goods" },
       { ne: "Packaging", en: "Packaging" },
     ],
-    sampleNote: { ne: "Simple Interface", en: "Sample interface" },
+    sampleNote: { ne: "नमुना इन्टरफेस", en: "Sample interface" },
   },
   scene3: {
     eyebrow: { ne: "०२ · AI Automation", en: "02 · AI automation" },
     headline: {
-      ne: "दोहोरिने काम, अब Automatically हुन्छ।",
+      ne: "दोहोरिने कामलाई स्वचालित बनाऔं।",
       en: "The repetitive work, handled automatically.",
     },
-    highlight: { ne: ["Automatically"], en: ["automatically"] },
+    highlight: { ne: ["स्वचालित"], en: ["automatically"] },
     nodes: {
       request: {
         title: { ne: "New request", en: "New request" },
@@ -165,10 +135,10 @@ export const copy = {
   scene4: {
     eyebrow: { ne: "०३ . Websites", en: "03 · Websites" },
     headline: {
-      ne: "हरेक Screen मा चल्ने Fast वेबसाइट।",
+      ne: "हरेक स्क्रिनमा चल्ने छिटो वेबसाइट।",
       en: "Fast websites that work on every screen.",
     },
-    highlight: { ne: ["हरेक", "Screen", "Fast"], en: ["every", "screen"] },
+    highlight: { ne: ["छिटो"], en: ["every", "screen"] },
     url: "yourbusiness.com.np",
     siteName: { ne: "Your Business", en: "Your Business" },
     siteNav: [
@@ -193,12 +163,12 @@ export const copy = {
     ],
   },
   scene5: {
-    eyebrow: { ne: "०४ · IT तालिम", en: "04 · IT training" },
+    eyebrow: { ne: "सिक्ने · Nayaro Academy", en: "Learn · Nayaro Academy" },
     headline: {
-      ne: "Learn by building real projects.",
+      ne: "वास्तविक प्रोजेक्ट बनाएर सिकौं।",
       en: "Learn by building real projects.",
     },
-    highlight: { ne: ["Learn", "projects"], en: ["real", "projects"] },
+    highlight: { ne: ["बनाएर"], en: ["real", "projects"] },
     academy: "Nayaro Academy",
     academySub: {
       ne: "Practical technology education",
@@ -226,26 +196,16 @@ export const copy = {
   },
   scene6: {
     services: [
-      { ne: "Software", en: "Software" },
-      { ne: "Automation", en: "Automation" },
-      { ne: "Websites", en: "Websites" },
-      { ne: "IT Training", en: "Training" },
+      { ne: "Academy · सिक्ने", en: "Academy · Learn" },
+      { ne: "Solutions · बनाउने", en: "Solutions · Build" },
+      { ne: "Labs · नयाँ खोज्ने", en: "Labs · Innovate" },
     ],
-    // Each phrase: [lead word, highlighted word]
-    taglineEn: [
-      ["We", "Build."],
-      ["We", "Automate."],
-      ["We", "Empower."],
-    ],
-    taglineNe: [
-      ["हामी", "बनाउँछौं।"],
-      ["हामी", "स्वचालित गर्छौं।"],
-      ["हामी", "सशक्त बनाउँछौं।"],
-    ],
+    taglineEn: [["", "Learn."], ["", "Build."], ["", "Innovate."]],
     line: {
-      ne: "Nayaro Technology — for businesses, schools and learners in Nepal।",
-      en: "Nayaro Technology — for businesses, schools and learners in Nepal.",
+      ne: "उर्लाबारीबाट — प्रविधि सिकाउँदै, समाधान बनाउँदै, नयाँ खोज्दै।",
+      en: "From Urlabari, Nepal. Teaching, building and creating our own.",
     },
-    location: { ne: "उर्लाबारी, मोरङ, नेपाल", en: "Urlabari, Morang, Nepal" },
+    cta: {ne: "आफ्नो प्रोजेक्ट सुरु गर्नुहोस् · Academy बारे बुझ्नुहोस्", en: "Start a project · Explore Academy"},
+      location: { ne: "उर्लाबारी, मोरङ, नेपाल", en: "Urlabari, Morang, Nepal" },
   },
 } as const;

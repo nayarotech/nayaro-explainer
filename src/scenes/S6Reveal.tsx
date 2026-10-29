@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {Code2, Globe, GraduationCap, Mail, MapPin, Phone, Workflow} from 'lucide-react';
+import {Code2, Globe, GraduationCap, Mail, MapPin, Phone, FlaskConical} from 'lucide-react';
+import {CUES} from '../config/timeline';
 import {brand} from '../config/brand';
 import {copy} from '../config/copy';
 import {Background} from '../components/Background';
@@ -15,11 +16,11 @@ import {EASE, mix, pop, prog} from '../design/motion';
 const C = brand.colors;
 const T = copy.scene6;
 
-const ICONS = [Code2, Workflow, Globe, GraduationCap];
+const ICONS = [GraduationCap, Code2, FlaskConical];
 const TILE_W = 300;
 const TILE_H = 180;
 const GAP = 40;
-const ROW_X = (1920 - (TILE_W * 4 + GAP * 3)) / 2;
+const ROW_X = (1920 - (TILE_W * T.services.length + GAP * (T.services.length - 1))) / 2;
 const ROW_Y = 450;
 const FROM: [number, number][] = [
   [-500, -260],
@@ -29,10 +30,9 @@ const FROM: [number, number][] = [
 ];
 
 const CONVERGE_AT = 78;
-const MARK_AT = 96;
+const MARK_AT = CUES.logoMark;
 const WORD_AT = 124;
 const TAG_AT = 158;
-const TAG2_AT = 190;
 const LINE_AT = 214;
 const CONTACT_AT = 236;
 
@@ -149,7 +149,7 @@ export const S6Reveal: React.FC = () => {
         {/* connecting rail between the four services */}
         <Wires>
           <Connector
-            d={`M ${ROW_X + TILE_W / 2} ${rowY} L ${ROW_X + 3 * (TILE_W + GAP) + TILE_W / 2} ${rowY}`}
+            d={`M ${ROW_X + TILE_W / 2} ${rowY} L ${ROW_X + (T.services.length - 1) * (TILE_W + GAP) + TILE_W / 2} ${rowY}`}
             start={24}
             dur={34}
             color={C.blueMid}
@@ -195,9 +195,7 @@ export const S6Reveal: React.FC = () => {
             <LogoLockup height={132} markDraw={markDraw} wordDelay={WORD_AT} />
           </div>
           <div style={{height: lang === 'ne' ? 84 : 92}} />
-          {/* {lang !== 'en' ? <TaglineRow phrases={T.taglineNe} delay={TAG_AT} size={lang === 'bilingual' ? 50 : 58} nepali /> : null} */}
-          {lang === 'bilingual' ? <div style={{height: 34}} /> : null}
-          {lang !== 'ne' ? <TaglineRow phrases={T.taglineEn} delay={lang === 'bilingual' ? TAG2_AT : TAG_AT} size={lang === 'bilingual' ? 40 : 58} muted={lang === 'bilingual'} /> : null}
+          <TaglineRow phrases={T.taglineEn} delay={TAG_AT} size={58} />
           <div style={{height: lang === 'bilingual' ? 52 : 60}} />
           <div
             style={{
@@ -213,6 +211,7 @@ export const S6Reveal: React.FC = () => {
           </div>
         </div>
 
+        <div style={{position: 'absolute', top: 765, width: '100%', textAlign: 'center', fontFamily: lang === 'en' ? FONT.body : FONT.ne, fontSize: 25, fontWeight: 600, color: C.blue, opacity: prog(f, CONTACT_AT, 20)}}>{t(T.cta)}</div>
         {/* contact bar */}
         <div style={{position: 'absolute', left: 0, right: 0, top: 830, display: 'flex', justifyContent: 'center'}}>
           <div

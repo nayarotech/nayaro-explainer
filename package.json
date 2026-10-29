@@ -7,7 +7,7 @@
     "studio": "remotion studio src/index.ts",
     "render": "remotion render src/index.ts NayaroExplainer out/nayaro-explainer-bilingual.mp4",
     "render:draft": "remotion render src/index.ts NayaroExplainer out/draft.mp4 --scale=0.5 --crf=26",
-    "still": "remotion still src/index.ts NayaroExplainer out/still.png --frame=1475",
+    "still": "remotion still src/index.ts NayaroExplainer out/still.png --frame=1690",
     "stills": "node scripts/preview-stills.mjs out/stills",
     "audio": "python3 scripts/make_placeholder_audio.py",
     "narration": "node scripts/export-narration.mjs",

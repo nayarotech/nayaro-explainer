@@ -1,13 +1,14 @@
 import React from 'react';
 import {AbsoluteFill, Html5Audio, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {TransitionSeries, linearTiming} from '@remotion/transitions';
-import {AUDIO, NARRATION, SCENES, SHOW_NARRATION_GUIDES, TOTAL_FRAMES, TRANSITION_FRAMES, sceneStart, type SceneId} from './config/timeline';
+import {AUDIO, CUES, VIDEO, NARRATION, SCENES, SHOW_NARRATION_GUIDES, TOTAL_FRAMES, TRANSITION_FRAMES, sceneStart, type SceneId} from './config/timeline';
 import {depthFade} from './transitions/depthFade';
 import {S1Opportunity} from './scenes/S1Opportunity';
 import {S2Software} from './scenes/S2Software';
 import {S3Automation} from './scenes/S3Automation';
 import {S4Websites} from './scenes/S4Websites';
 import {S5Training} from './scenes/S5Training';
+import {S7Labs} from './scenes/S7Labs';
 import {S6Reveal} from './scenes/S6Reveal';
 import {brand} from './config/brand';
 import {FONT} from './design/fonts';
@@ -20,14 +21,16 @@ export const SCENE_COMPONENTS: Record<SceneId, React.FC> = {
   automation: S3Automation,
   websites: S4Websites,
   training: S5Training,
+  labs: S7Labs,
   reveal: S6Reveal,
 };
 
+// The 0.9s whoosh peaks 13 frames in; center it on the visual crossover.
 /** Sound-effect cues (absolute frames). Files live in /public/audio/. */
-const SFX: {at: number; file: string; volume?: number}[] = [
-  ...SCENES.slice(1).map((s) => ({at: sceneStart(s.id) - 6, file: 'audio/sfx-whoosh.wav'})),
-  {at: sceneStart('opportunity') + 138, file: 'audio/sfx-connect.wav'},
-  {at: sceneStart('reveal') + 96, file: 'audio/sfx-logo-hit.wav', volume: 1},
+const SFX: {at: number; file: string; volume?: number; seconds: number}[] = [
+  ...SCENES.slice(1).map((s) => ({at: sceneStart(s.id) + Math.round(TRANSITION_FRAMES / 2) - 13, file: 'audio/sfx-whoosh.wav', seconds: 0.9})),
+  {at: sceneStart('opportunity') + CUES.introSummary, file: 'audio/sfx-connect.wav', seconds: 1.6},
+  {at: sceneStart('reveal') + CUES.logoMark, file: 'audio/sfx-logo-hit.wav', volume: 1, seconds: 3.5},
 ];
 
 const Soundtrack: React.FC = () => {
@@ -42,7 +45,7 @@ const Soundtrack: React.FC = () => {
         }
       />
       {SFX.map((s, i) => (
-        <Sequence key={i} from={Math.max(0, s.at)} durationInFrames={60} layout="none">
+        <Sequence key={i} from={Math.max(0, s.at)} durationInFrames={Math.min(Math.ceil(s.seconds * VIDEO.fps), TOTAL_FRAMES - s.at)} layout="none">
           <Html5Audio src={staticFile(s.file)} volume={AUDIO.sfxVolume * (s.volume ?? 1)} />
         </Sequence>
       ))}

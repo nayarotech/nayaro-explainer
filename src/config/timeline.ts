@@ -17,6 +17,7 @@ export const SCENES = [
   {id: 'automation', duration: 270},
   {id: 'websites', duration: 240},
   {id: 'training', duration: 255},
+  {id: 'labs', duration: 240},
   {id: 'reveal', duration: 360},
 ] as const;
 
@@ -35,6 +36,12 @@ export const sceneStart = (id: SceneId): number => {
 export const TOTAL_FRAMES =
   SCENES.reduce((a, s) => a + s.duration, 0) - TRANSITION_FRAMES * (SCENES.length - 1);
 
+/** Shared visual/audio cue offsets, relative to their scene. */
+export const CUES = {
+  introSummary: 120,
+  logoMark: 96,
+} as const;
+
 /**
  * NARRATION TIMING MARKERS (Nepali + English voice-over scripts)
  * `at` is the frame offset inside the scene where the line starts.
@@ -45,8 +52,8 @@ export const NARRATION: {scene: SceneId; at: number; ne: string; en: string}[] =
   {
     scene: 'opportunity',
     at: 12,
-    ne: 'धेरै व्यवसायको काम एक-अर्कासँग नजोडिएका औजारहरूमा छरिएको छ। अब सबैलाई जोड्ने बेला आयो।',
-    en: 'Too much business work is scattered across tools that never talk. It is time to connect them.',
+    ne: 'उर्लाबारीबाट, हामी प्रविधि सिकाउँछौं, व्यवसायका लागि सफ्टवेयर बनाउँछौं र आफ्नै उत्पादन विकास गर्छौं।',
+    en: 'From Urlabari, Nepal. We teach technology, build software for businesses, and create products of our own.',
   },
   {
     scene: 'software',
@@ -73,16 +80,21 @@ export const NARRATION: {scene: SceneId; at: number; ne: string; en: string}[] =
     en: 'And through Nayaro Academy, we teach practical technology skills with real tools and real projects.',
   },
   {
+    scene: 'labs', at: 15,
+    ne: 'Nayaro Labs मा हामी आफ्नै उत्पादन, औजार र AI प्रयोगहरू विकास गर्छौं। विचारलाई प्रयोगमा ल्याउँछौं।',
+    en: 'At Nayaro Labs, we develop our own products, tools and AI experiments. Turning ideas into things people can use.',
+  },
+  {
     scene: 'reveal',
     at: 20,
-    ne: 'Nayaro Technology — हामी बनाउँछौं, स्वचालित गर्छौं, सशक्त बनाउँछौं।',
-    en: 'Nayaro Technology. We build. We automate. We empower.',
+    ne: 'Nayaro Technology — सिक्ने, बनाउने, नयाँ खोज्ने।',
+    en: 'Nayaro Technology. Learn. Build. Innovate.',
   },
   {
     scene: 'reveal',
     at: 250,
-    ne: 'आफ्नो प्रोजेक्ट सुरु गर्न nayaro.tech मा सम्पर्क गर्नुहोस्।',
-    en: 'Visit nayaro.tech to start your project.',
+    ne: 'प्रोजेक्ट वा तालिमबारे बुझ्न nayaro.tech मा आउनुहोस्।',
+    en: 'Start a project or explore Academy at nayaro.tech.',
   },
 ];
 

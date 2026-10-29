@@ -1,0 +1,31 @@
+1
+00:00:00,400 --> 00:00:07,133
+From Urlabari, Nepal. We teach technology, build software for businesses, and create products of our own.
+
+2
+00:00:07,333 --> 00:00:14,967
+Nayaro Technology builds custom software, shaped around how your business already runs.
+
+3
+00:00:15,167 --> 00:00:23,300
+We automate the repetitive work — entries, alerts and reports — using AI where it genuinely helps.
+
+4
+00:00:23,500 --> 00:00:30,633
+We build fast, modern websites that work properly on every screen.
+
+5
+00:00:30,833 --> 00:00:38,467
+And through Nayaro Academy, we teach practical technology skills with real tools and real projects.
+
+6
+00:00:38,667 --> 00:00:45,967
+At Nayaro Labs, we develop our own products, tools and AI experiments. Turning ideas into things people can use.
+
+7
+00:00:46,167 --> 00:00:53,633
+Nayaro Technology. Learn. Build. Innovate.
+
+8
+00:00:53,833 --> 00:00:57,300
+Start a project or explore Academy at nayaro.tech.
